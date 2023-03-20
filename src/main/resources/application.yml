@@ -1,0 +1,55 @@
+logging.level:
+  me.dorie.blog.search: DEBUG
+
+spring:
+  jpa.open-in-view: false
+  cloud:
+    openfeign:
+      client:
+        config:
+          default:
+            connectTimeout: 3000
+            readTimeout: 3000
+            loggerLevel: full
+  data:
+    redis:
+      host: "localhost"
+      port: "6370"
+
+resilience4j:
+  circuitbreaker:
+    configs:
+      default:
+        sliding-window-type: COUNT_BASED
+        slidingWindowSize: 10
+        minimumNumberOfCalls: 5
+        failureRateThreshold: 50
+        waitDurationInOpenState: 30000
+  retry:
+    configs:
+      default:
+        maxAttempts: 3
+        waitDuration: 100
+        retryExceptions:
+          - org.springframework.web.client.HttpServerErrorException
+          - java.util.concurrent.TimeoutException
+          - java.io.IOException
+  bulkhead:
+    configs:
+      default:
+        maxConcurrentCalls: 100
+  timelimiter:
+    configs:
+      default:
+        cancelRunningFuture: false
+        timeoutDuration: 3s
+
+
+open-api:
+  kakao:
+    base-url: "https://dapi.kakao.com"
+    api-key: ${KAKAO_API_KEY}
+  naver:
+    base-url: "https://openapi.naver.com"
+    client-secret: ${NAVER_CLIENT_SECRET}
+    client-id: ${NAVER_CLIENT_ID}
