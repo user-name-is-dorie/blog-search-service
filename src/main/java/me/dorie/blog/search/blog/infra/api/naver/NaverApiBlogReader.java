@@ -5,7 +5,7 @@ import lombok.extern.slf4j.Slf4j;
 import me.dorie.blog.search.blog.domain.Blog;
 import me.dorie.blog.search.blog.domain.BlogReader;
 import me.dorie.blog.search.blog.domain.BlogSearchCriteria;
-import me.dorie.blog.search.common.Page;
+import me.dorie.blog.search.blog.domain.BlogSearchPage;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -14,23 +14,22 @@ import java.util.List;
 @Component
 @RequiredArgsConstructor
 public class NaverApiBlogReader implements BlogReader {
-    private final NaverApiClient naverApiClient;
-    private final NaverApiDtoMapper mapper;
+    private final NaverApiFeignClient client;
+    private final NaverApiTranslator translator;
 
     @Override
-    public Page<Blog> searchBlog(BlogSearchCriteria criteria) {
-        log.info("NaverApiBlogReader.searchBlog");
-        final NaverApiDto.BlogSearchRequest request = mapper.toRequest(criteria);
-        final NaverApiDto.BlogSearchResponse response = naverApiClient.searchBlog(request);
-        final List<Blog> blogs = mapper.toBlogs(response.getItems());
+    public BlogSearchPage<Blog> searchBlog(BlogSearchCriteria criteria) {
+        final NaverApiDto.BlogSearchRequest request = translator.translateToRequest(criteria);
+        final NaverApiDto.BlogSearchResponse response = client.searchBlog(request);
+        final List<Blog> blogs = translator.translateToBlogs(response.getItems());
         return applyPagination(criteria, response.getTotal(), blogs);
     }
 
-    private Page<Blog> applyPagination(BlogSearchCriteria criteria, int total, List<Blog> contents) {
+    private BlogSearchPage<Blog> applyPagination(BlogSearchCriteria criteria, int total, List<Blog> contents) {
         final Integer page = criteria.getPage();
         final Integer size = criteria.getSize();
         final int pageableCount = total / size + (total % size > 0 ? 1 : 0);
         final boolean isEnd = pageableCount == page;
-        return new Page<>(contents, total, pageableCount, isEnd);
+        return new BlogSearchPage<>(contents, total, pageableCount, isEnd);
     }
 }

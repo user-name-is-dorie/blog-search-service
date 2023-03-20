@@ -2,9 +2,7 @@ package me.dorie.blog.search.trend.infra.db.jpa;
 
 import lombok.RequiredArgsConstructor;
 import me.dorie.blog.search.trend.domain.Trend;
-import me.dorie.blog.search.trend.domain.TrendLog;
 import me.dorie.blog.search.trend.domain.TrendReader;
-import me.dorie.blog.search.trend.infra.db.TrendMapper;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -13,15 +11,16 @@ import java.util.List;
 @RequiredArgsConstructor
 public class TrendLogJpaOperator implements TrendReader {
     private final TrendLogJpaRepository trendLogRepository;
-    private final TrendMapper mapper;
+    private final TrendJpaTranslator translator;
 
     @Override
     public List<Trend> getTrendsByLimit(int limit) {
         final List<TrendProjection> projections = trendLogRepository.getTrendProjectionsByLimit(limit);
-        return mapper.toTrends(projections);
+        return translator.translateToTrends(projections);
     }
 
-    public void logging(TrendLog trend) {
-        trendLogRepository.save(trend);
+    public void logging(String keyword) {
+        final TrendLogEntity trendLogEntity = TrendLogEntity.from(keyword);
+        trendLogRepository.save(trendLogEntity);
     }
 }

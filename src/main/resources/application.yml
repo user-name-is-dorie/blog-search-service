@@ -1,8 +1,19 @@
-logging.level:
-  me.dorie.blog.search: DEBUG
+logging:
+  level:
+    #    root: DEBUG
+    me.dorie.blog.search: INFO
 
 spring:
-  jpa.open-in-view: false
+  jpa:
+    open-in-view: false
+    database-platform: H2
+    generate-ddl: true
+    hibernate:
+      ddl-auto: create-drop
+    properties:
+      hibernate:
+        show_sql: true
+        format_sql: false
   cloud:
     openfeign:
       client:
@@ -14,7 +25,7 @@ spring:
   data:
     redis:
       host: "localhost"
-      port: "6370"
+      port: 6370
 
 resilience4j:
   circuitbreaker:

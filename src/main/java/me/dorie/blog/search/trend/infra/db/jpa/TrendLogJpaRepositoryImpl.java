@@ -6,7 +6,8 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
-import static me.dorie.blog.search.trend.domain.QTrendLog.trendLog;
+import static me.dorie.blog.search.trend.infra.db.jpa.QTrendLogEntity.trendLogEntity;
+
 
 @Repository
 @RequiredArgsConstructor
@@ -15,14 +16,14 @@ public class TrendLogJpaRepositoryImpl implements TrendLogJpaRepositoryCustom {
 
     public List<TrendProjection> getTrendProjectionsByLimit(int limit) {
         return queryFactory
-                .from(trendLog)
-                .groupBy(trendLog.keyword)
+                .from(trendLogEntity)
+                .groupBy(trendLogEntity.keyword)
                 .select(new QTrendProjection(
-                                trendLog.keyword,
-                                trendLog.keyword.count()
+                                trendLogEntity.keyword,
+                                trendLogEntity.keyword.count()
                         )
                 )
-                .orderBy(trendLog.keyword.count().desc())
+                .orderBy(trendLogEntity.keyword.count().desc())
                 .limit(limit)
                 .fetch();
     }

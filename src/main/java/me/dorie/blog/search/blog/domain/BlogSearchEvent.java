@@ -6,16 +6,16 @@ import lombok.Getter;
 
 @Getter
 public class BlogSearchEvent {
-    private final String query;
+    private final String keyword;
 
     @Builder(access = AccessLevel.PRIVATE)
-    private BlogSearchEvent(String query) {
-        this.query = query;
+    private BlogSearchEvent(String keyword) {
+        this.keyword = keyword;
     }
 
     public static BlogSearchEvent from(BlogSearchCriteria criteria) {
         return BlogSearchEvent.builder()
-                .query(criteria.getQuery())
+                .keyword(criteria.getKeyword())
                 .build();
     }
 }

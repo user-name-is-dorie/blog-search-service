@@ -2,6 +2,7 @@ package me.dorie.blog.search.trend.application;
 
 import lombok.RequiredArgsConstructor;
 import me.dorie.blog.search.trend.domain.Trend;
+import me.dorie.blog.search.trend.domain.TrendCreateCommand;
 import me.dorie.blog.search.trend.domain.TrendService;
 import org.springframework.stereotype.Component;
 
@@ -14,5 +15,9 @@ public class TrendFacade {
 
     public List<Trend> getTrends() {
         return trendService.getTrends();
+    }
+
+    public void createTrend(TrendCreateCommand command) {
+        trendService.createTrend(command);
     }
 }

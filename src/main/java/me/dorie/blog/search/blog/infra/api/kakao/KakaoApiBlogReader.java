@@ -5,7 +5,7 @@ import lombok.extern.slf4j.Slf4j;
 import me.dorie.blog.search.blog.domain.Blog;
 import me.dorie.blog.search.blog.domain.BlogReader;
 import me.dorie.blog.search.blog.domain.BlogSearchCriteria;
-import me.dorie.blog.search.common.Page;
+import me.dorie.blog.search.blog.domain.BlogSearchPage;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -14,16 +14,15 @@ import java.util.List;
 @Component
 @RequiredArgsConstructor
 public class KakaoApiBlogReader implements BlogReader {
-    private final KakaoApiClient kakaoApiCaller;
-    private final KakaoApiDtoMapper mapper;
+    private final KakaoApiFeignClient client;
+    private final KakaoApiTranslator translator;
 
     @Override
-    public Page<Blog> searchBlog(BlogSearchCriteria criteria) {
-        log.info("KakaoApiBlogReader.searchBlog");
-        final KakaoApiDto.BlogSearchRequest request = mapper.toRequest(criteria);
-        final KakaoApiDto.BlogSearchResponse response = kakaoApiCaller.searchBlog(request);
-        final List<Blog> blogs = mapper.toBlogs(response.getDocuments());
+    public BlogSearchPage<Blog> searchBlog(BlogSearchCriteria criteria) {
+        final KakaoApiDto.BlogSearchRequest request = translator.translateToRequest(criteria);
+        final KakaoApiDto.BlogSearchResponse response = client.searchBlog(request);
+        final List<Blog> blogs = translator.translateToBlogs(response.getDocuments());
         final KakaoApiDto.BlogSearchResponse.Meta meta = response.getMeta();
-        return new Page<>(blogs, meta.getTotalCount(), meta.getPageableCount(), meta.isEnd());
+        return new BlogSearchPage<>(blogs, meta.getTotalCount(), meta.getPageableCount(), meta.isEnd());
     }
 }

@@ -55,10 +55,9 @@ dependencies {
 
     // redis
     implementation 'org.springframework.boot:spring-boot-starter-data-redis'
+    testImplementation 'org.springframework.boot:spring-boot-starter-data-redis'
     //embedded-redis
     implementation 'it.ozimov:embedded-redis:0.7.2'
-
-    testImplementation 'org.springframework.boot:spring-boot-starter-data-redis'
 }
 
 dependencyManagement {

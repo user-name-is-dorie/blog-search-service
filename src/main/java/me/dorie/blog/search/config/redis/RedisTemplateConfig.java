@@ -12,8 +12,6 @@ public class RedisTemplateConfig {
 
     @Bean
     public StringRedisTemplate stringRedisTemplate(RedisConnectionFactory redisConnectionFactory) {
-        StringRedisTemplate template = new StringRedisTemplate(redisConnectionFactory);
-        template.setEnableTransactionSupport(true);
-        return template;
+        return new StringRedisTemplate(redisConnectionFactory);
     }
 }
