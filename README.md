@@ -21,21 +21,13 @@ java -jar blog-search-service-1.0.jar
    - trend
    - config
 
-2. 도메인 내에서는 레이어 계층 별로 패키지를 구성
-   - ui : 앱의 요청하려는 클라이언트와 소통하는 레이어
-      - Controller : API 정의
-      - DTO :  도메인을 각각의 상황의 맞게 표현하고
-      - EventHandler : 이벤트 핸들링
-   - application : 앱 내의 유즈케이스 및 다른 도메인과의 소통 및 응용
-      - Facade :
-   - domain : POJO 형태로 앱에서 다루는 관심사 및 인터페이스 정의
-      - Interface
-         - Service, Reader, Writer
-      - domain (Class)
-   - infra : 도메인의 레이어의 인터페이스를 각각 BoundedContext 에 맞게 저수준 기술 구현
-      - Class : 도메인 레이어의 Interface 를 바탕으로 BoundedContext 에 맞는 세부 기술 구현 (ex. Redis, Feign, JPA)
-         - Service, Reader, Writer
-      - Translator : 외부와 통신할 경우 내부 도메인의 형태로 번역해주는 역할 (anti corruption)
+2. 도메인 내에서는 레이어 별로 패키지를 구성
+   - ui : 앱의 요청하려는 클라이언트와 소통하는 
+   - application : 앱 내의 유즈케이스 및 다른 도메인과의 소통 및 응용하는 레이어
+   - domain : POJO 형태로 앱에서 다루는 관심사 및 인터페이스 정의하는 레이어
+   - infra : 도메인의 레이어의 인터페이스를 각각 BoundedContext 에 맞게 저수준 기술 구현하는 레이어
+      - Service, Reader, Writer : 도메인 레이어의 Interface 를 바탕으로 BoundedContext 에 맞는 세부 기술 구현 (ex. Redis, Feign, JPA)  
+      - Translator : 외부와 통신할 경우 내부 도메인의 형태로 번역해주는 역할
 
 ### 용어 사전
 
