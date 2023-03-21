@@ -19,6 +19,7 @@ java -jar blog-search-service-1.0.jar
    - blog
    - trend
    - config
+   - common
 
 2. 도메인 내에서는 레이어 별로 패키지를 구성
    - ui : 앱의 요청하려는 클라이언트와 소통하는 
