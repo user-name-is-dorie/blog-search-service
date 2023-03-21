@@ -3,7 +3,7 @@
 ### 빌드 결과물
 
 
-빌드 결과물 다운로드 -> [blog-search-service-1.0.jar](https://github.com/user-name-is-dorie/blog-search-service/raw/master/blog-search-service-1.0.jar)
+빌드 결과물 다운로드 -> [blog-search-service-1.0.jar](https://drive.google.com/file/d/1r36HL41uhWEq9Pw6fk8nMyVV2tekglcn/view?usp=sharing)
 
 ```Shell
 java -jar blog-search-service-1.0.jar 
