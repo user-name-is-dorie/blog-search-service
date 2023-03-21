@@ -18,7 +18,7 @@ class NaverApiBlogReaderTest {
         final BlogSearchCriteria criteria = BlogSearchCriteria.builder()
                 .keyword("미움받을 용기")
                 .page(1)
-                .sort(BlogSearchCriteria.Sort.ACCURACY)
+                .sort(BlogSearchCriteria.Sort.ACCURACY.name())
                 .size(5)
                 .build();
 

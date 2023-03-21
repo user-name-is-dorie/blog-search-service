@@ -11,6 +11,7 @@ import me.dorie.blog.search.blog.domain.BlogSearchPage;
 import me.dorie.blog.search.blog.ui.dto.BlogSearchPageRequest;
 import me.dorie.blog.search.blog.ui.dto.BlogSearchPageResponse;
 import me.dorie.blog.search.blog.ui.dto.BlogSearchResponse;
+import me.dorie.blog.search.common.CommonResponse;
 import org.springdoc.core.annotations.ParameterObject;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -26,11 +27,11 @@ public class BlogApiController {
 
     @Operation(description = "블로그 검색하기")
     @GetMapping
-    public BlogSearchPageResponse<BlogSearchResponse> searchBlog(
+    public CommonResponse<BlogSearchPageResponse<BlogSearchResponse>> searchBlog(
             @ParameterObject @Valid BlogSearchPageRequest request
     ) {
         final BlogSearchCriteria criteria = mapper.toCriteria(request);
         final BlogSearchPage<Blog> result = blogSearchFacade.searchBlog(criteria);
-        return BlogSearchPageResponse.from(result, mapper::toResponse);
+        return CommonResponse.success(BlogSearchPageResponse.from(result, mapper::toResponse));
     }
 }

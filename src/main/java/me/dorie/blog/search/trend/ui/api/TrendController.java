@@ -3,6 +3,7 @@ package me.dorie.blog.search.trend.ui.api;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
+import me.dorie.blog.search.common.CommonResponse;
 import me.dorie.blog.search.trend.application.TrendFacade;
 import me.dorie.blog.search.trend.domain.Trend;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -21,8 +22,8 @@ public class TrendController {
 
     @Operation(description = "인기 검색어 목록")
     @GetMapping
-    public List<TrendResponse> getTrends() {
+    public CommonResponse<List<TrendResponse>> getTrends() {
         final List<Trend> result = trendFacade.getTrends();
-        return mapper.toResponses(result);
+        return CommonResponse.success(mapper.toResponses(result));
     }
 }
