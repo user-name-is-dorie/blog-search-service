@@ -38,7 +38,7 @@ public class TrendDBService implements TrendService {
         return trendCircuitBreaker.run(
                 () -> trendRedisOperator.getTrendsByLimit(TOP_TEN_LIMIT),
                 throwable -> {
-                    log.error("레디스 바탕으로 인기검색어 조회가 실패하여 log 를 바탕으로 조회합니다.");
+                    log.error("레디스 바탕으로 인기검색어 조회가 실패하여 로그를 바탕으로 조회합니다.");
                     return trendLogJpaOperator.getTrendsByLimit(TOP_TEN_LIMIT);
                 }
         );

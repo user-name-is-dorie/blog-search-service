@@ -67,5 +67,7 @@ dependencyManagement {
 }
 
 tasks.named('test') {
-    useJUnitPlatform()
+    useJUnitPlatform {
+//        excludeTags 'speed-test'
+    }
 }

@@ -1,4 +1,4 @@
-package me.dorie.blog.search.infra;
+package me.dorie.blog.search.blog.infra.api;
 
 import me.dorie.blog.search.blog.domain.BlogSearchCriteria;
 import me.dorie.blog.search.blog.infra.api.kakao.KakaoApiBlogReader;
