@@ -2,7 +2,7 @@
 
 ### 빌드 결과물
 
-빌드 결과물 다운로드(조금 시간이 걸릴 수 있습니다.) -> [blog-search-service-1.0.jar](https://drive.google.com/file/d/1r36HL41uhWEq9Pw6fk8nMyVV2tekglcn/view?usp=sharing)
+빌드 결과물 다운로드(조금 시간이 걸릴 수 있습니다.) -> [blog-search-service-1.0.jar](https://drive.google.com/file/d/1unbz84AnrODWq-K3RCyjRzG1fE13ypn6/view?usp=sharing)
 
 ```Shell
 java -jar blog-search-service-1.0.jar 
@@ -19,6 +19,7 @@ java -jar blog-search-service-1.0.jar
    - blog
    - trend
    - config
+   - common
 
 2. 도메인 내에서는 레이어 별로 패키지를 구성
    - ui : 앱의 요청하려는 클라이언트와 소통하는 
